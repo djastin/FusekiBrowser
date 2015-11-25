@@ -11,7 +11,7 @@
   <properties>
 		<spring.version>4.0.1.RELEASE</spring.version>
 	</properties>
-  
+	  
   <dependencies>
   
     <dependency>
@@ -42,7 +42,9 @@
   </dependencies>
   <build>
     <finalName>FusekiBrowser</finalName>
-    
-    
   </build>
+ 
 </project>
+
+
+
