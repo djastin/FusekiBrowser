@@ -42,5 +42,7 @@
   </dependencies>
   <build>
     <finalName>FusekiBrowser</finalName>
+    
+    
   </build>
 </project>
