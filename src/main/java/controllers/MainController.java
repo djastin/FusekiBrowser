@@ -14,7 +14,7 @@ public class MainController
 	{
 		ModelAndView mv = new ModelAndView("main");
 		mv.addObject("name", name);
-		
+
 		return mv;
 	}
 }

@@ -11,6 +11,12 @@
 
  
  <context:component-scan base-package="controllers" />
+ 
+ <bean id="employeeManager" class="service.EmployeeManager" />
+ 
+ <bean name="/employee" class="controllers.EmployeeController">
+	<property name="employeeManager" ref="employeeManager"/>
+ </bean>
 
  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix" value="/WEB-INF/views/"/>

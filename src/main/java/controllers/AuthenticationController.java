@@ -15,6 +15,8 @@ public class AuthenticationController
 		ModelAndView mv = new ModelAndView("login");
 		mv.addObject("message", "");
 		mv.addObject("name", name);
+		
+		
 		return mv;
 	}
 }

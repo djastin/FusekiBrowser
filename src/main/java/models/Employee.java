@@ -2,42 +2,33 @@ package models;
 
 public class Employee 
 {
-	private String id, firstName, lastName;
+	private String username, password;
 	
-	public Employee(String id, String firstName, String lastName)
+	public Employee(String username, String password)
 	{
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
 	}
 
-	public String getId()
+	public String getUsername()
 	{
-		return id;
+		return username;
 	}
 
-	public void setId(String id) 
+	public void setUsername(String username)
 	{
-		this.id = id;
+		this.username = username;
 	}
 
-	public String getFirstName()
+	public String getPassword() 
 	{
-		return firstName;
+		return password;
 	}
 
-	public void setFirstName(String firstName)
+	public void setPassword(String password) 
 	{
-		this.firstName = firstName;
+		this.password = password;
 	}
 
-	public String getLastName()
-	{
-		return lastName;
-	}
-
-	public void setLastName(String lastName) 
-	{
-		this.lastName = lastName;
-	}
+	
 }
