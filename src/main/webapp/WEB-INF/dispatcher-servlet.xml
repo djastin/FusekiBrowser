@@ -12,10 +12,15 @@
  
  <context:component-scan base-package="controllers" />
  
- <bean id="employeeManager" class="service.EmployeeManager" />
+ <bean id="employeeManager" class="models.EmployeeManager" />
+ <bean id="queryHandler" class="models.QueryHandler" />
  
  <bean name="/employee" class="controllers.EmployeeController">
 	<property name="employeeManager" ref="employeeManager"/>
+ </bean>
+ 
+ <bean name="/test" class="controllers.TestController">
+ 	<property name="queryHandler" ref="queryHandler" />
  </bean>
 
  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

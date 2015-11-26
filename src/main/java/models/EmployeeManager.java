@@ -1,8 +1,6 @@
-package service;
+package models;
 
 import java.util.ArrayList;
-
-import models.Employee;
 
 public class EmployeeManager 
 {
