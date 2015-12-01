@@ -16,6 +16,7 @@ public class MainController implements Controller
 		
 		ModelAndView mv = new ModelAndView("main");
 		mv.addObject("datasets", dataset_results);
+		mv.addObject("dataset_link", "./browse-data");
 		
 		return mv;
 	}

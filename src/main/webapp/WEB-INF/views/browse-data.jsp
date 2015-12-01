@@ -422,12 +422,13 @@
                     </thead>
                     <tbody>
                     
-                      <tr>
-                        <td>Trident</td>
-                        <td>Internet
-                          Explorer 4.0</td>
-                        <td>Win 95+</td>
-                      </tr>
+                    <c:forEach items="${triple_results}" var="triple">
+                    	<tr>
+                        	<td>${triple.subject}</td>
+                        	<td>${triple.predicate}</td>
+                        	<td>${triple.object}</td>
+                     	</tr>
+					</c:forEach>
                       
                     </tbody>
                     <tfoot>
