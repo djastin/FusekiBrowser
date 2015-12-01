@@ -418,7 +418,7 @@
                   			<i class="ion ion-pie-graph"></i>
                 		</div>
                 
-                		<a href="${dataset_link}" class="small-box-footer">
+                		<a href="${dataset_link}?dataset=${listValue}" class="small-box-footer">
                   			<i>Browse data</i>
                 		</a>
               		</div>
