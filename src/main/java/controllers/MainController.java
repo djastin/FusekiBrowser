@@ -1,20 +1,22 @@
 package controllers;
  
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.ModelAndView;
+import models.core.sql.DatasetHandler;
  
-@Controller
-public class MainController 
+public class MainController implements Controller
 { 
-	@RequestMapping("/browser")
-	public ModelAndView showMessage(
-			@RequestParam(value = "name", required = false, defaultValue = "World") String name) 
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
+		throws Exception
 	{
+		ArrayList<String> dataset_results = DatasetHandler.getHandler().select();
+		
 		ModelAndView mv = new ModelAndView("main");
-		mv.addObject("name", name);
-
+		mv.addObject("datasets", dataset_results);
+		
 		return mv;
 	}
 }

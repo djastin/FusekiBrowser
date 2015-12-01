@@ -13,19 +13,32 @@
  <context:component-scan base-package="controllers" />
  
   <bean id="employeeManager" class="models.EmployeeManager" />
-  <bean id="queryHandler" class="models.QueryHandler" /> 
+  <bean id="queryHandler" class="models.core.QueryHandler" /> 
+  
+  <bean name="/browser" class="controllers.MainController">
+  </bean>
  
   <bean name="/employee" class="controllers.EmployeeController">
 	<property name="employeeManager" ref="employeeManager"/>
- </bean>
+  </bean>
  
   <bean name="/test" class="controllers.TestController">
  	<property name="queryHandler" ref="queryHandler" />
- </bean>
+  </bean>
+ 
+  <bean name="/signin" class="controllers.AuthenticationController">
+  </bean>
 
  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix" value="/WEB-INF/views/"/>
     <property name="suffix" value=".jsp"/>
+ </bean>
+ 
+ <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/TEST"/>
+        <property name="username" value="root" />
+        <property name="password" value="rootpw" />
  </bean>
  
  <mvc:resources mapping="/assets/**" location="classpath:/META-INF/resources/webjars/"/>

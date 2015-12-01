@@ -11,6 +11,17 @@
 		</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<!--  <servlet>
+       <servlet-name>sc</servlet-name>
+       <servlet-class>SearchEngineServlet</servlet-class>
+       <load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+       <servlet-name>sc</servlet-name>
+       <url-pattern>/sc</url-pattern>
+	</servlet-mapping>-->
  
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>

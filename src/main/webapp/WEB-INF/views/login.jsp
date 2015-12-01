@@ -23,6 +23,7 @@
           </ul>
         </nav>
         <div class="head-title">Fuseki Browser</div>
+        ${name}
       </div>
       
       <div class="container">

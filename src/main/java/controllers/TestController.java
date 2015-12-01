@@ -2,10 +2,12 @@ package controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.jena.query.ResultSet;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-import models.QueryHandler;
+import models.core.QueryHandler;
  
 public class TestController implements Controller
 {
@@ -25,10 +27,10 @@ public class TestController implements Controller
 			HttpServletResponse arg1) throws Exception
 	{
 		queryHandler = new QueryHandler();
-		//queryHandler.test();
+		ResultSet results = queryHandler.select("ds");
 		
-		ModelAndView mv = new ModelAndView("test");
-		//mv.addObject("queryHandler", this.employeeManager.getEmployees());
+		ModelAndView mv = new ModelAndView("main");
+		mv.addObject("datasets", results);
 		
 		return mv;
 	}

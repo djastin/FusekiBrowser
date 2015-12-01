@@ -26,6 +26,7 @@ public class EmployeeController implements Controller
 	{
 		ModelAndView mv = new ModelAndView("employeeList");
 		mv.addObject("employeeList", this.employeeManager.getEmployees());
+		
 		return mv;
 	}
 }
