@@ -17,6 +17,9 @@
   
   <bean name="/browser" class="controllers.MainController">
   </bean>
+  
+  <bean name="/browse-data" class="controllers.BrowseController">
+  </bean>
  
   <bean name="/employee" class="controllers.EmployeeController">
 	<property name="employeeManager" ref="employeeManager"/>
