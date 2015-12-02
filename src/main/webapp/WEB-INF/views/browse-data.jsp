@@ -1,5 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page session="false"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -32,7 +33,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/daterangepicker/daterangepicker-bs3.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard/custom.css">
+	
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -40,6 +42,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
+   
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
@@ -410,7 +413,7 @@
                   <h3 class="box-title">Triples</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="example1" class="table table-bordered table-hover">
                     <thead>
                     
                       <tr>
@@ -424,9 +427,9 @@
                     
                     <c:forEach items="${triple_results}" var="triple">
                     	<tr>
-                        	<td>${triple.subject}</td>
-                        	<td>${triple.predicate}</td>
-                        	<td>${triple.object}</td>
+                        	<td data-value="subject:${triple.subject}"><a href="#">${triple.subject}</a></td>
+                        	<td data-value="predicate:${triple.predicate}"><a href="#">${triple.predicate}</a></td>
+                        	<td data-value="object:${triple.object}"><a href="#">${triple.object}</a></td>
                      	</tr>
 					</c:forEach>
                       
@@ -635,6 +638,7 @@
     <script src="${pageContext.request.contextPath}/js/app.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="${pageContext.request.contextPath}/js/demo.js"></script>
+    <script src="${pageContext.request.contextPath}/js/core/SearchEngine.js"></script>
     <!-- page script -->
     <script>
       $(function () {
@@ -648,6 +652,6 @@
           "autoWidth": false
         });
       });
-    </script>
+    </script> 
   </body>
 </html>

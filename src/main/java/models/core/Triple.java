@@ -1,8 +1,17 @@
 package models.core;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import views.jsonviews.Views;
+
 public class Triple
 {
-	private String subject, predicate, object;
+	@JsonView(Views.Public.class)
+	private String subject;
+	@JsonView(Views.Public.class)
+	private String predicate;
+	@JsonView(Views.Public.class)
+	private String object;
 	
 	public Triple(String subject, String predicate, String object)
 	{

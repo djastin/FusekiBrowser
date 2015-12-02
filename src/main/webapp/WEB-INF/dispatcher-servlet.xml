@@ -14,7 +14,7 @@
  
   <bean id="employeeManager" class="models.EmployeeManager" />
   <bean id="queryHandler" class="models.core.QueryHandler" /> 
-  
+    
   <bean name="/browser" class="controllers.MainController">
   </bean>
   

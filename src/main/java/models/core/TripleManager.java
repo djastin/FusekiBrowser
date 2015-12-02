@@ -1,18 +1,17 @@
 package models.core;
 
 import java.util.ArrayList;
-
 import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFormatter;
-
+import com.fasterxml.jackson.annotation.JsonView;
 import models.core.sparql.TripleHandler;
+import views.jsonviews.Views;
 
 public class TripleManager
 {
 	private static TripleManager instance;
+	@JsonView(Views.Public.class)
 	private ArrayList<Triple> triples;
 	private TripleHandler tripleHandler;
 	
