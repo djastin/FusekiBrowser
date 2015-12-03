@@ -72,13 +72,24 @@ public class TripleHandler
 	{
 		log.info("Select data with subject filter " + dataset);
 		
+		String query = "SELECT * WHERE {?x ?r ?y .FILTER (?x = <" + subject.replace("\"", "") + ">)}" +
+				"LIMIT 100"; 
+		
 		QueryExecution qe = QueryExecutionFactory.sparqlService(
-				"http://localhost:3030/" + dataset + "/query", ""
-						+ "SELECT * WHERE {?x ?r ?y .FILTER (?x = <" + subject.replace("\"", "") + ">)}" +
-							"LIMIT 100");
+				"http://localhost:3030/" + dataset + "/query", query);
+		
+		if(!qe.execSelect().hasNext())
+		{
+			qe = null;
+			
+			query = "SELECT * WHERE {?x ?r ?y .FILTER (?x = " + subject + ")}" +
+					" LIMIT 100"; 
+			
+			System.out.println("Recover query subject: " + query);
+		}
 		
 		System.out.println("Query Subject: " + "SELECT * WHERE {?x ?r ?y .FILTER (?x = <" + subject.replace("\"", "") + ">)}" +
-							"LIMIT 100");
+							" LIMIT 100");
 				
 		return qe;
 	}

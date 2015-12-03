@@ -50,15 +50,23 @@ public class TripleManager
 	
 	private List<Triple> getResultsFromSelect(QueryExecution qe)
 	{
-		ResultSet results = qe.execSelect();
+		ResultSet results = null;
+		try 
+		{
+			results = qe.execSelect();
+		}
+		catch(NullPointerException np)
+		{
+			
+		}
 		
 		while(results.hasNext())
 		{
 			QuerySolution qs = results.nextSolution();
 			
-			String subject = cleanHashtags(qs.get("?x").toString());
-			String predicate = cleanHashtags(qs.get("?r").toString());
-			String object = cleanHashtags(qs.get("?y").toString());
+			String subject = qs.get("?x").toString();
+			String predicate = qs.get("?r").toString();
+			String object = qs.get("?y").toString();
 			
 			Triple triple_result = new Triple(subject, predicate, object);
 			triples.add(triple_result);
@@ -78,9 +86,9 @@ public class TripleManager
 		{
 			QuerySolution qs = results.nextSolution();
 			
-			String subject = cleanHashtags(qs.get("?x").toString());
-			String predicate = cleanHashtags(qs.get("?r").toString());
-			String object = cleanHashtags(qs.get("?y").toString());
+			String subject = qs.get("?x").toString();
+			String predicate = qs.get("?r").toString();
+			String object = qs.get("?y").toString();
 			
 			Triple triple_result = new Triple(subject, predicate, object);
 			triples.add(triple_result);
