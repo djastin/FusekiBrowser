@@ -9,6 +9,8 @@ import models.core.TripleManager;
 @RestController
 public class AjaxController
 {	
+	private TripleManager tripleManager;
+	
 	@RequestMapping("/ajax")
 	public ModelAndView helloAjaxTest() 
 	{
@@ -18,8 +20,18 @@ public class AjaxController
 	@RequestMapping(value = "/search/api/getSearchResult")
 	public TripleManager getSearchResultViaAjax(@RequestBody String search)
 	{
-		System.out.println("Ajax test: " + search);
+		tripleManager = TripleManager.getTripleManager();
+		tripleManager.clearTriples();
 		
-		return null;
+		if(search.indexOf("subject") == 1)
+			tripleManager.filterTriplesWithSubject("google", search.replace("subject:", ""));
+		else if(search.indexOf("predicate") == 1)
+			tripleManager.filterTriplesWithPredicate("google", search.replace("predicate:", ""));
+		else if(search.indexOf("object") == 1)
+			tripleManager.filterTriplesWithObject("google", search.replace("object:", ""));
+		
+		System.out.println("Triples: " + tripleManager.getTriples());
+		
+		return tripleManager;
 	}	
 }

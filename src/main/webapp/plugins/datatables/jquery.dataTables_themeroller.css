@@ -313,6 +313,8 @@ table.dataTable td {
   text-align: right;
 }
 .dataTables_wrapper .dataTables_filter input {
+	  display: none;
+	
   margin-left: 0.5em;
 }
 .dataTables_wrapper .dataTables_info {

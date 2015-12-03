@@ -40,4 +40,40 @@ public class TripleHandler
 				
 		return qe;
 	}
+	
+	public QueryExecution selectWithPredicate(String dataset, String predicate)
+	{
+		log.info("Select data with predicate filter " + dataset);
+		
+		QueryExecution qe = QueryExecutionFactory.sparqlService(
+				"http://localhost:3030/" + dataset + "/query", ""
+						+ "SELECT * WHERE {?x ?r ?y .FILTER (?r = <" + predicate.replace("\"", "") + ">)}" +
+							"LIMIT 100");
+						
+		return qe;
+	}
+	
+	public QueryExecution selectWithSubject(String dataset, String subject)
+	{
+		log.info("Select data with subject filter " + dataset);
+		
+		QueryExecution qe = QueryExecutionFactory.sparqlService(
+				"http://localhost:3030/" + dataset + "/query", ""
+						+ "SELECT * WHERE {?x ?r ?y .FILTER (?x = <" + subject.replace("\"", "") + ">)}" +
+							"LIMIT 100");
+				
+		return qe;
+	}
+	
+	public QueryExecution selectWithObject(String dataset, String object)
+	{
+		log.info("Select data with object filter " + dataset);
+		
+		QueryExecution qe = QueryExecutionFactory.sparqlService(
+				"http://localhost:3030/" + dataset + "/query", ""
+						+ "SELECT * WHERE {?x ?r ?y .FILTER (?y = " + object + ")}" +
+							"LIMIT 100");
+		
+		return qe;
+	}
 }

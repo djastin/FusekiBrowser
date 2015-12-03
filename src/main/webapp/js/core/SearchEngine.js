@@ -16,7 +16,7 @@ function searchViaAjax(input)
 		type : "POST",
 		contentType : "application/json",
 		url : "/FusekiBrowser/search/api/getSearchResult",
-		data : search,
+		data : JSON.stringify(search),
 		dataType : 'json',
 		timeout : 100000,
 		success : function(data) 
@@ -27,12 +27,11 @@ function searchViaAjax(input)
 		error : function(e)
 		{
 			console.log("ERROR: ", e);
-			display(e);
+			alert("error");
 		},
 		done : function(e) 
 		{
 			console.log("DONE");
-			enableSearchButton(true);
 		}
 	});
 }
@@ -47,13 +46,24 @@ function getUrlVars()
 	return vars;
 }
 
-function enableSearchButton(flag) 
-{
-	$("#btn-search").prop("disabled", flag);
-}
-
 function display(data) 
 {
-	var json = "<h4>Ajax Response</h4><pre>" + JSON.stringify(data, null, 4) + "</pre>";
-	$('#feedback').html(json);
+	var table_headers = "<thead><tr><th>Subject</th><th>Predicate</th><th>Object</th></tr></thead>";
+	var table_data = table_data += table_headers;
+	
+	for(var i = 0; i < data["triples"].length; i++)
+	{
+		var subject = data["triples"][i]["subject"];
+		var predicate = data["triples"][i]["predicate"];
+		var object = data["triples"][i]["object"];
+		
+		table_data += "<tr>"
+                        	+ "<td data-value='subject:" + subject + "'><a href='#'>" + subject + "</a></td>" +
+                        	"<td data-value='predicate:" + predicate + "'><a href='#'>" + predicate + "</a></td>" +
+                        	"<td data-value='object:" + object + "'><a href='#'>" + object + "</a></td>" +
+                     	"</tr>";
+	}
+	
+	table_data = table_data += table_headers;
+	$("#example1").html(table_data);
 }

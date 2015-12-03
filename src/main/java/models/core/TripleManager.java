@@ -1,6 +1,8 @@
 package models.core;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
@@ -12,7 +14,7 @@ public class TripleManager
 {
 	private static TripleManager instance;
 	@JsonView(Views.Public.class)
-	private ArrayList<Triple> triples;
+	private List<Triple> triples;
 	private TripleHandler tripleHandler;
 	
 	private TripleManager()
@@ -46,6 +48,27 @@ public class TripleManager
 		return output;
 	}
 	
+	private List<Triple> getResultsFromSelect(QueryExecution qe)
+	{
+		ResultSet results = qe.execSelect();
+		
+		while(results.hasNext())
+		{
+			QuerySolution qs = results.nextSolution();
+			
+			String subject = cleanHashtags(qs.get("?x").toString());
+			String predicate = cleanHashtags(qs.get("?r").toString());
+			String object = cleanHashtags(qs.get("?y").toString());
+			
+			Triple triple_result = new Triple(subject, predicate, object);
+			triples.add(triple_result);
+		}
+		
+		qe.close();
+		
+		return triples;
+	}
+	
 	public void findTriples(String dataset)
 	{
 		QueryExecution qe = tripleHandler.select(dataset, 100);
@@ -66,7 +89,22 @@ public class TripleManager
 		qe.close();
 	}
 	
-	public ArrayList<Triple> getTriples()
+	public List<Triple> filterTriplesWithSubject(String dataset, String subject)
+	{
+		return getResultsFromSelect(tripleHandler.selectWithSubject(dataset, subject));
+	}
+	
+	public List<Triple> filterTriplesWithPredicate(String dataset, String predicate)
+	{
+		return getResultsFromSelect(tripleHandler.selectWithPredicate(dataset, predicate));
+	}
+	
+	public List<Triple> filterTriplesWithObject(String dataset, String object)
+	{
+		return getResultsFromSelect(tripleHandler.selectWithObject(dataset, object));
+	}
+	
+	public List<Triple> getTriples()
 	{
 		return triples;
 	}
