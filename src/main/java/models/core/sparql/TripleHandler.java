@@ -2,8 +2,6 @@ package models.core.sparql;
 
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFormatter;
 import org.apache.log4j.Logger;
 
 public class TripleHandler
@@ -45,9 +43,26 @@ public class TripleHandler
 	{
 		log.info("Select data with predicate filter " + dataset);
 		
+		String query = "SELECT * WHERE {?x ?r ?y .FILTER (?r = <" + predicate.replace("\"", "") + ">)}" +
+				"LIMIT 100";
+		
 		QueryExecution qe = QueryExecutionFactory.sparqlService(
-				"http://localhost:3030/" + dataset + "/query", ""
-						+ "SELECT * WHERE {?x ?r ?y .FILTER (?r = <" + predicate.replace("\"", "") + ">)}" +
+				"http://localhost:3030/" + dataset + "/query", query);
+		
+		if(!qe.execSelect().hasNext())
+		{
+			qe = null;
+			
+			query = "SELECT * WHERE {?x ?r ?y .FILTER (?r = " + predicate + ")}" +
+					"LIMIT 100";
+			
+			System.out.println("Recover predicate query: " + query);
+			
+			qe = QueryExecutionFactory.sparqlService(
+					"http://localhost:3030/" + dataset + "/query", query);
+		}
+		
+		System.out.println("Query Predicate: SELECT * WHERE {?x ?r ?y .FILTER (?r = <" + predicate.replace("\"", "") + ">)}" +
 							"LIMIT 100");
 						
 		return qe;
@@ -61,17 +76,39 @@ public class TripleHandler
 				"http://localhost:3030/" + dataset + "/query", ""
 						+ "SELECT * WHERE {?x ?r ?y .FILTER (?x = <" + subject.replace("\"", "") + ">)}" +
 							"LIMIT 100");
+		
+		System.out.println("Query Subject: " + "SELECT * WHERE {?x ?r ?y .FILTER (?x = <" + subject.replace("\"", "") + ">)}" +
+							"LIMIT 100");
 				
 		return qe;
 	}
 	
 	public QueryExecution selectWithObject(String dataset, String object)
 	{
+		String query = ""
+				+ "SELECT * WHERE {?x ?r ?y .FILTER (?y = " + object + ")}" +
+				"LIMIT 100";
+		
 		log.info("Select data with object filter " + dataset);
 		
 		QueryExecution qe = QueryExecutionFactory.sparqlService(
-				"http://localhost:3030/" + dataset + "/query", ""
-						+ "SELECT * WHERE {?x ?r ?y .FILTER (?y = " + object + ")}" +
+				"http://localhost:3030/" + dataset + "/query", query);
+		
+		if(!qe.execSelect().hasNext())
+		{
+			qe = null;
+			
+			query = ""
+					+ "SELECT * WHERE {?x ?r ?y .FILTER (?y = <"+ object.replace("\"", "") + ">)}" +
+					"LIMIT 100";
+			
+			System.out.println("Recover query: " + query);
+			
+			qe = QueryExecutionFactory.sparqlService(
+					"http://localhost:3030/" + dataset + "/query", query);
+		}
+		
+		System.out.println("Query Object: " + "SELECT * WHERE {?x ?r ?y .FILTER (?y = " + object + ")}" +
 							"LIMIT 100");
 		
 		return qe;
